@@ -5,7 +5,7 @@
 # ci-dessous fait TIRER l'image déjà construite depuis GHCR au lieu de la
 # construire localement (aucun Dockerfile ni build.yaml n'est donc nécessaire).
 name: Vigeos Agent
-version: "1.1.16"
+version: "1.1.17"
 slug: vigeos_agent
 description: >-
   Configuration automatique de la box Vigeos — activation par QR code depuis
