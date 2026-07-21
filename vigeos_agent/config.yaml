@@ -2,7 +2,7 @@
 # dépôt privé. Ne pas éditer à la main : toute modification serait
 # écrasée à la prochaine publication.
 name: Vigeos Agent
-version: 1.1.19
+version: 1.1.20
 slug: vigeos_agent
 description: Configuration automatique de la box Vigeos — activation par QR code depuis
   l'application, détection de chute, envoi des alertes et chiffrement de bout en bout
@@ -27,7 +27,7 @@ devices:
 map:
 - homeassistant_config:rw
 - media:ro
-- addon_configs:rw
+- all_addon_configs:rw
 - share:rw
 services:
 - mqtt:want
