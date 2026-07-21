@@ -1,0 +1,72 @@
+# Manifeste PUBLIC de l'add-on Vigeos Agent.
+#
+# Ce fichier ne sert QU'À décrire l'add-on au Supervisor Home Assistant.
+# Le code source est propriétaire et n'est pas publié ici : la clé `image:`
+# ci-dessous fait TIRER l'image déjà construite depuis GHCR au lieu de la
+# construire localement (aucun Dockerfile ni build.yaml n'est donc nécessaire).
+name: Vigeos Agent
+version: "1.1.14"
+slug: vigeos_agent
+description: >-
+  Configuration automatique de la box Vigeos — activation par QR code depuis
+  l'application, détection de chute, envoi des alertes et chiffrement de bout
+  en bout des clips.
+url: "https://vigeos.fr"
+# Image publiée par Vigeos, une par architecture. Le Supervisor remplace
+# {arch} par l'architecture de la box et tire le tag égal à `version:`.
+image: ghcr.io/lixisr/vigeos-agent-{arch}
+# armv7 non supporté : l'interpréteur du modèle de détection de chute n'existe
+# pas pour cette architecture. Le kit Vigeos est un Raspberry Pi 5 (aarch64) ;
+# amd64 couvre les machines de test.
+arch:
+  - aarch64
+  - amd64
+init: false
+boot: auto
+startup: services
+# Pilotage du Supervisor (installation/mise à jour automatique de l'add-on)
+hassio_api: true
+hassio_role: manager
+# Écriture de la configuration Home Assistant et rechargement
+homeassistant_api: true
+# Réseau du foyer : découverte des caméras du kit sur le LAN
+host_network: true
+# Bus système (org.bluez) : appairage Bluetooth de la box lors de l'installation
+host_dbus: true
+# Socket de gestion Bluetooth, requis pour l'annonce BLE d'appairage
+privileged:
+  - NET_ADMIN
+# Écran de la box : affichage du code d'appairage (console HDMI puis écran DSI)
+devices:
+  - /dev/tty1
+  - /dev/fb0
+map:
+  - homeassistant_config:rw
+  - media:ro
+  # /share : emplacement du modèle de détection mis à jour à distance
+  - share:rw
+# `want` et non `need` : la box doit pouvoir se configurer même si aucun broker
+# MQTT n'est encore installé — seule la détection de chute attendra.
+services:
+  - mqtt:want
+options:
+  # Laissés vides : renseignés automatiquement lors de l'activation du kit
+  # (scan du QR code dans l'application Vigeos) ou par appairage Bluetooth.
+  kit_code: ""
+  kit_secret: ""
+  api_base: "https://api.vigeos.fr"
+  # Interrupteur maître de la détection de chute embarquée.
+  fall_detection: true
+  # Broker MQTT de repli quand aucun service MQTT n'est déclaré au Supervisor.
+  # Défaut : l'add-on officiel Mosquitto.
+  mqtt_host: "core-mosquitto"
+  # Slug de l'add-on Frigate installé sur la box. Défaut : add-on du dépôt
+  # communautaire Frigate.
+  frigate_slug: "ccab4aaf_frigate"
+schema:
+  kit_code: str?
+  kit_secret: password?
+  api_base: url
+  fall_detection: bool
+  mqtt_host: str
+  frigate_slug: str
