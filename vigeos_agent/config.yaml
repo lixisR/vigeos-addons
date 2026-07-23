@@ -2,7 +2,7 @@
 # dépôt privé. Ne pas éditer à la main : toute modification serait
 # écrasée à la prochaine publication.
 name: Vigeos Agent
-version: 1.1.20
+version: 1.1.24
 slug: vigeos_agent
 description: Configuration automatique de la box Vigeos — activation par QR code depuis
   l'application, détection de chute, envoi des alertes et chiffrement de bout en bout
@@ -24,6 +24,7 @@ privileged:
 devices:
 - /dev/tty1
 - /dev/fb0
+- /dev/input
 map:
 - homeassistant_config:rw
 - media:ro
@@ -39,6 +40,13 @@ options:
   mqtt_host: core-mosquitto
   frigate_slug: ccab4aaf_frigate
   frigate_config: /addon_configs/ccab4aaf_frigate/config.yml
+  manage_frigate: true
+  frigate_update_breaking: false
+  ptz_tracking: false
+  ptz_camera: ''
+  ptz_compensation: false
+  track_persist_s: 0
+  confirm_immobility: false
 schema:
   kit_code: str?
   kit_secret: password?
@@ -47,4 +55,11 @@ schema:
   mqtt_host: str
   frigate_slug: str
   frigate_config: str
+  manage_frigate: bool
+  frigate_update_breaking: bool
+  ptz_tracking: bool
+  ptz_camera: str?
+  ptz_compensation: bool
+  track_persist_s: float(0,30)?
+  confirm_immobility: bool
 image: ghcr.io/lixisr/vigeos-agent-{arch}
