@@ -2,7 +2,7 @@
 # dépôt privé. Ne pas éditer à la main : toute modification serait
 # écrasée à la prochaine publication.
 name: Vigeos Agent
-version: 1.1.24
+version: 1.1.25
 slug: vigeos_agent
 description: Configuration automatique de la box Vigeos — activation par QR code depuis
   l'application, détection de chute, envoi des alertes et chiffrement de bout en bout
