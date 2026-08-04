@@ -2,7 +2,7 @@
 # dépôt privé. Ne pas éditer à la main : toute modification serait
 # écrasée à la prochaine publication.
 name: Vigeos Agent
-version: 1.1.26
+version: 1.1.27
 slug: vigeos_agent
 description: Configuration automatique de la box Vigeos — activation par QR code depuis
   l'application, détection de chute, envoi des alertes et chiffrement de bout en bout
@@ -42,6 +42,15 @@ options:
   frigate_config: /addon_configs/ccab4aaf_frigate/config.yml
   manage_frigate: true
   frigate_update_breaking: false
+  detect_substream_hd: false
+  hailo_detection: false
+  hailo_model_path: ''
+  nvidia_detection: false
+  nvidia_detector_type: onnx
+  nvidia_model_path: ''
+  nvidia_device: ''
+  nvidia_hwaccel: true
+  sequence_upload: false
   ptz_tracking: false
   ptz_camera: ''
   ptz_compensation: false
@@ -57,6 +66,15 @@ schema:
   frigate_config: str
   manage_frigate: bool
   frigate_update_breaking: bool
+  detect_substream_hd: bool
+  hailo_detection: bool
+  hailo_model_path: str?
+  nvidia_detection: bool
+  nvidia_detector_type: list(onnx|tensorrt)
+  nvidia_model_path: str?
+  nvidia_device: str?
+  nvidia_hwaccel: bool
+  sequence_upload: bool
   ptz_tracking: bool
   ptz_camera: str?
   ptz_compensation: bool
