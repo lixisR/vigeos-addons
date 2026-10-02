@@ -19,9 +19,8 @@ télésurveillance bienveillante pour les seniors : <https://vigeos.fr>
 
 ## Add-ons
 
-| Add-on | Description |
-|---|---|
-| [**Vigeos Agent**](vigeos_agent) | Configuration automatique de la box Vigeos : activation par QR code depuis l'application, détection de chute sur la box, alertes à la famille, chiffrement de bout en bout des vidéos. |
+Aucun add-on n'est publié pour le moment : la prochaine version de Vigeos Agent
+est en préparation et sera de nouveau proposée ici.
 
 ## À propos de ce dépôt
 
